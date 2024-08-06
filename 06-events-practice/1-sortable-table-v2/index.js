@@ -7,6 +7,7 @@ export default class SortableTable extends SortableTableV1 {
   constructor(headerConfig = [], { data = [], sorted = {} } = {}) {
     super(headerConfig, data)
     this.sorted = sorted;
+    super.sort(sorted.id, sorted.order);
     this.createEventListeners();
   }
 
@@ -33,7 +34,7 @@ export default class SortableTable extends SortableTableV1 {
   }
 
   handlePointerDownEvent(event) {
-    const currentColumn = event.target.closest(['data-sortable="true"']);
+    const currentColumn = event.target.closest('[data-sortable="true"]');
     if (!currentColumn) return;
     this.sortField = currentColumn.dataset.id;
     this.sortOrder = currentColumn.dataset.order === "asc" ? "desc" : "asc";
