@@ -19,11 +19,13 @@ class Tooltip {
   initialize() {
     document.addEventListener('pointerover', this.onPointerOver);
     document.addEventListener('pointerout', this.onPointerOut);
+    document.addEventListener('pointermove', this.onPointerMove);
   }
 
   destroy() {
     document.removeEventListener('pointerover', this.onPointerOver);
     document.removeEventListener('pointerout', this.onPointerOut);
+    document.removeEventListener('pointermove', this.onPointerMove);
     this.element.remove();
   }
 
@@ -39,6 +41,12 @@ class Tooltip {
       this.element.remove()
     }
   };
+
+  onPointerMove = (event) => {
+    if (!this.element) return;
+    this.element.style.left = event.clientX + 'px';
+    this.element.style.top  = event.clientY + 'px';
+  }
 
 
   render(text) {
