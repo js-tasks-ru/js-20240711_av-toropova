@@ -1,5 +1,5 @@
 import SortableTableV1 from "./sortable-table-v1.js"
-export default class SortableTable extends SortableTableV1{
+export default class SortableTable extends SortableTableV1 {
   isSortLocally = true;
   sortField;
   sortOrder;
@@ -10,7 +10,7 @@ export default class SortableTable extends SortableTableV1{
     this.createEventListeners();
   }
 
-  sort () {
+  sort() {
     if (this.isSortLocally) {
       this.sortOnClient();
     } else {
@@ -18,21 +18,21 @@ export default class SortableTable extends SortableTableV1{
     }
   }
 
-  sortOnServer(){}
+  sortOnServer() { }
 
-  sortOnClient(){
+  sortOnClient() {
     super.sort(this.sortField, this.sortOrder)
   }
 
-  createEventListeners(){
-this.handlePointerDownEvent = this.handlePointerDownEvent(this);
-this.subElements.header.addEventListener(
-  "pointerdown",
-  this.handlePointerDownEvent
-);
+  createEventListeners() {
+    this.handlePointerDownEvent = this.handlePointerDownEvent.bind(this);
+    this.subElements.header.addEventListener(
+      "pointerdown",
+      this.handlePointerDownEvent
+    );
   }
 
-  handlePointerDownEvent(event){
+  handlePointerDownEvent(event) {
     const currentColumn = event.target.closest(['data-sortable="true"']);
     if (!currentColumn) return;
     this.sortField = currentColumn.dataset.id;
@@ -41,14 +41,14 @@ this.subElements.header.addEventListener(
     this.sort();
   }
 
-  destroyEventListeners(){
+  destroyEventListeners() {
     this.subElements.header.removeEventListener(
       "pointerdown",
       this.handlePointerDownEvent
     );
   }
 
-  destroy(){
+  destroy() {
     super.destroy();
     this.destroyEventListeners();
   }
