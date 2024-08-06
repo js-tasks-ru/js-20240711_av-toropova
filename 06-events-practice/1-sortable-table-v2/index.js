@@ -1,4 +1,4 @@
-import SortableTableV1 from "/sortable-table-v1.js"
+import SortableTableV1 from "./sortable-table-v1.js"
 export default class SortableTable extends SortableTableV1{
   isSortLocally = true;
   sortField;
